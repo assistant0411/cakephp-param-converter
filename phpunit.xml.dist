@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    colors="true"
+    processIsolation="false"
+    stopOnFailure="false"
+    syntaxCheck="false"
+    bootstrap="./vendor/cakephp/cakephp/tests/bootstrap.php"
+    verbose="true"
+    >
+    <php>
+        <ini name="memory_limit" value="-1"/>
+        <ini name="apc.enable_cli" value="1"/>
+    </php>
+
+	<filter>
+		<whitelist>
+			<directory suffix=".php">.</directory>
+			<exclude>
+				<directory>./build/</directory>
+				<directory>./config/</directory>
+				<directory>./doc/</directory>
+				<directory>./tests/</directory>
+				<directory>./vendor/</directory>
+			</exclude>
+		</whitelist>
+	</filter>
+
+	<logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+		<log type="coverage-html" target="build/coverage"/>
+		<log type="coverage-clover" target="build/logs/clover.xml"/>
+		<log type="coverage-crap4j" target="build/logs/crap4j.xml"/>
+		<log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
+	</logging>
+
+    <!-- Setup a listener for fixtures -->
+    <listeners>
+        <listener
+        class="\Cake\TestSuite\Fixture\FixtureInjector"
+        file="./vendor/cakephp/cakephp/src/TestSuite/Fixture/FixtureInjector.php">
+            <arguments>
+                <object class="\Cake\TestSuite\Fixture\FixtureManager" />
+            </arguments>
+        </listener>
+    </listeners>
+
+    <!-- Add any additional test suites you want to run here -->
+    <testsuites>
+        <testsuite name="Plugin Test Suite">
+            <directory>./tests/TestCase</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>
