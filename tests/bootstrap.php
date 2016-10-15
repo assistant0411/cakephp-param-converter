@@ -38,7 +38,7 @@ $loader = new \Cake\Core\ClassLoader;
 $loader->register();
 
 $loader->addNamespace('TestApp', APP);
-$loader->addNamespace('DebugkitTestPlugin', APP . 'Plugin' . DS . 'TestPlugin' . DS . 'src');
+# $loader->addNamespace('DebugkitTestPlugin', APP . 'Plugin' . DS . 'TestPlugin' . DS . 'src');
 
 require_once CORE_PATH . 'config/bootstrap.php';
 
@@ -87,7 +87,7 @@ Cache::config([
 
 // Ensure default test connection is defined
 if (!getenv('db_dsn')) {
-    putenv('db_dsn=sqlite://127.0.0.1/' . TMP . 'debug_kit_test.sqlite');
+    putenv('db_dsn=sqlite://127.0.0.1/' . TMP . 'plugin_test.sqlite');
 }
 
 $config = [
@@ -97,7 +97,7 @@ $config = [
 
 // Use the test connection for 'debug_kit' as well.
 ConnectionManager::config('test', $config);
-ConnectionManager::config('test_debug_kit', $config);
+#ConnectionManager::config('test_debug_kit', $config);
 
 
 Log::config([
@@ -113,7 +113,7 @@ Log::config([
     ]
 ]);
 
-Plugin::load('DebugKit', ['path' => ROOT, 'bootstrap' => true]);
+#Plugin::load('DebugKit', ['path' => ROOT, 'bootstrap' => true]);
 
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
