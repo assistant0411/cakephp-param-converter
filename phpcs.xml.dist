@@ -17,6 +17,9 @@
     <!-- Assume UTF-8 -->
     <config name="encoding" value="UTF-8" />
 
+    <!-- Extensions to check -->
+    <arg name="extensions" value="php,inc,ctp,js,css" />
+
     <!-- Use colors -->
     <arg name="colors" />
 
