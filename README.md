@@ -1,7 +1,12 @@
 CakePHP Plugin Template
 =======================
 
-Template for CakePHP 3 plugins.
+About
+-----
+
+Template for building CakePHP 3 plugins.
+
+Developed by [Qobo](https://www.qobo.biz), used in [Qobrix](https://qobrix.com).
 
 Usage
 -----
