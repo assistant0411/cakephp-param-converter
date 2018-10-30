@@ -10,7 +10,7 @@ class UsersController extends Controller
      *
      * @return void
      */
-    public function login()
+    public function login(): void
     {
     }
 }
