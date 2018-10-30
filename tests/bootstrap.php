@@ -6,7 +6,7 @@ use Cake\Filesystem\Folder;
 
 //$pluginName = 'Foobar';
 if (empty($pluginName)) {
-    throw new \Exception("Plugin name is not configured");
+    throw new \RuntimeException("Plugin name is not configured");
 }
 
 $findRoot = function () {
@@ -25,7 +25,7 @@ $findRoot = function () {
         return $root;
     }
 
-    throw new \Exception("Failed to find CakePHP");
+    throw new \RuntimeException("Failed to find CakePHP");
 };
 
 if (!defined('DS')) {
