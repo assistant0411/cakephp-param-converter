@@ -42,9 +42,10 @@ Change the following:
 1. Uncomment the `$pluginName` line in `tests/bootstrap.php` and change `Foobar` to the name of your plugin.
 2. Change the `Foobar` namespace to your plugin's in the following files:
   1. `tests/config/routes.php`
-  2. `tests/App/Controller/AppController.php`
-  3. `tests/App/Controller/UsersController.php`
-  4. `tests/Fixture/UsersFixture.php`
+  2. `tests/App/Application.php`
+  4. `tests/App/Controller/AppController.php`
+  4. `tests/App/Controller/UsersController.php`
+  5. `tests/Fixture/UsersFixture.php`
 3. Put your tests into `tests/TestCase`.
 4. Put your fixtures into `tests/Fixture`.
 5. Run `vendor/bin/phpunit`
