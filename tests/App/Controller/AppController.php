@@ -17,5 +17,4 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
     }
-
 }
