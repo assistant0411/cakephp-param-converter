@@ -2,7 +2,7 @@
     "name": "softius/cakephp-param-converter",
     "description": "Param converter for CakePHP Routing",
     "keywords": ["cakephp", "plugin", "middleware", "routing"],
-    "type": "library",
+    "type": "cakephp-plugin",
     "license": "MIT",
     "authors": [
         {
