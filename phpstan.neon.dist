@@ -3,7 +3,6 @@ parameters:
     paths:
         - src
         - tests
-        - webroot
     autoload_files:
         - tests/bootstrap.php
     earlyTerminatingMethodCalls:

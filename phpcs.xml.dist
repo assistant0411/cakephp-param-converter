@@ -28,12 +28,7 @@
     <!-- Files and directories to check -->
     <file>./src/</file>
     <file>./tests/</file>
-    <file>./config/</file>
-    <file>./webroot/</file>
 
     <!-- Exclude patterns -->
-    <exclude-pattern>config/Migrations/*</exclude-pattern>
-    <exclude-pattern>config/Seeds/*</exclude-pattern>
-    <exclude-pattern>webroot/plugins/*</exclude-pattern>
     <exclude-pattern>*\.min\.(css|js)</exclude-pattern>
 </ruleset>

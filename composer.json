@@ -1,0 +1,39 @@
+{
+    "name": "softius/cakephp-param-converter",
+    "description": "Param converter for CakePHP Routing",
+    "keywords": ["cakephp", "plugin", "middleware", "routing"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Iacovos Constantinou",
+            "email": "softius@gmail.com",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "cakephp/cakephp": "^3.7.0"
+    },
+    "require-dev": {
+        "qobo/cakephp-composer-dev": "^v1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ParamConverter\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ParamConverter\\Test\\": "tests",
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+        }
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse",
+        "test": "phpunit --no-coverage",
+        "test-coverage": "",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf"
+    }
+}

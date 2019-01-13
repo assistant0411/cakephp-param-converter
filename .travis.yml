@@ -52,4 +52,4 @@ after_success:
 
 notifications:
   email:
-    - webdev@qobocloud.com
+    - softius@gmail.com

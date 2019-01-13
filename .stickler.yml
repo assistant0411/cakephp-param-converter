@@ -3,5 +3,3 @@ linters:
     standard: CakePHP
     extensions: 'php,ctp'
     exclude: 'Generic.Commenting.Todo'
-files:
-    ignore: ['webroot/plugins/*']

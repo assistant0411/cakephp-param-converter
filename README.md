@@ -1,53 +1,37 @@
-CakePHP Plugin Template
-=======================
+# Param Converter
 
-About
------
+[...]
 
-Template for building CakePHP 3 plugins.
+## Install
 
-Developed by [Qobo](https://www.qobo.biz), used in [Qobrix](https://qobrix.com).
-
-Usage
------
-
-Pull the template code into your plugin:
+Using Composer:
 
 ```
-cd my-plugin
-git pull https://github.com/QoboLtd/cakephp-plugin-template master
+composer require softius/cakephp-param-converter
 ```
 
-Make sure your `composer.json` has something like this:
+You then need to load the plugin. You can use the shell command:
 
 ```
-"autoload": {
-    "psr-4": {
-        "Foobar\\": "src"
-    }
-},
-"autoload-dev": {
-    "psr-4": {
-        "Foobar\\Test\\": "tests",
-        "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
-    }
-}
+bin/cake plugin load ParamConverter
 ```
 
-If you do change your `composer.json` file, don't forget to run
-either `composer update` or at least `composer dump-autoload`.
+## Usage
 
-Change the following:
+[...]
 
-1. Uncomment the `$pluginName` line in `tests/bootstrap.php` and change `Foobar` to the name of your plugin.
-2. Change the `Foobar` namespace to your plugin's in the following files:
-  1. `tests/config/routes.php`
-  2. `tests/App/Application.php`
-  4. `tests/App/Controller/AppController.php`
-  4. `tests/App/Controller/UsersController.php`
-  5. `tests/Fixture/UsersFixture.php`
-3. Put your tests into `tests/TestCase`.
-4. Put your fixtures into `tests/Fixture`.
-5. Run `vendor/bin/phpunit`
+## Security
 
-If you know of any better way to do this please open an issue on GitHub or, better even, send a pull request.
+If you discover any security related issues, please email softius@gmail.com instead of using the issue tracker.
+
+## Credits
+
+- [Iacovos Constantinou][link-author]
+- [All Contributors][link-contributors]
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+[link-author]: https://github.com/softius
+[link-contributors]: ../../contributors
