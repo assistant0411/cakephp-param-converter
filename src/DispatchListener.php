@@ -8,12 +8,6 @@ use Cake\Event\EventListenerInterface;
 use Cake\Http\ControllerFactory;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
-use Cake\ORM\Entity;
-use Cake\ORM\TableRegistry;
-use Cake\Utility\Inflector;
-use DateTime;
-use ReflectionException;
-use ReflectionMethod;
 
 /**
  * Listens to 'beforeDispatch' event and applies the parameter convertion
@@ -50,39 +44,13 @@ class DispatchListener implements EventListenerInterface
         }
 
         $action = $request->getParam('action');
-        try {
-            $method = new ReflectionMethod($controller, $action);
-            $methodParams = $method->getParameters();
-            $requestParams = $request->getParam('pass');
+        $manager = new ParamConverterManager([
+            new EntityParamConverter(),
+            new DateTimeParamConverter(),
+        ]);
 
-            $stopAt = min(count($methodParams), count($requestParams));
-            for ($i = 0; $i < $stopAt; $i++) {
-                $methodParam = $methodParams[$i];
-                $requestParam = $requestParams[$i];
+        $request = $manager->apply($request, get_class($controller), $action);
 
-                $methodParamClass = $methodParam->getClass();
-                $methodParamType = $methodParam->getType();
-                if (empty($methodParamClass) && empty($methodParamType)) {
-                    continue;
-                }
-
-                if (!empty($methodParamClass) && $methodParamClass->isSubclassOf(Entity::class)) {
-                    $table = TableRegistry::getTableLocator()->get(
-                        Inflector::tableize($methodParamClass->getShortName())
-                    );
-
-                    $requestParams[$i] = $table->get($requestParam);
-                } elseif (!empty($methodParamClass) && $methodParamClass->getName() === DateTime::class) {
-                    $requestParams[$i] = new DateTime($requestParam);
-                } elseif (!empty($methodParamType)) {
-                    settype($requestParam, $methodParamType->getName());
-                    $requestParams[$i] = $requestParam;
-                }
-            }
-
-            $beforeEvent->setData('request', $request->withParam('pass', $requestParams));
-        } catch (ReflectionException $e) {
-            return;
-        }
+        $beforeEvent->setData('request', $request);
     }
 }

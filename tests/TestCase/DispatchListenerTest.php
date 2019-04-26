@@ -133,8 +133,8 @@ class DispatchListenerTest extends TestCase
         $response = new Response();
 
         $listener = new DispatchListener();
-        $listener->beforeDispatch($event, $request, $response);
 
-        $this->assertEmpty($event->getData('request'));
+        $this->expectException(\ReflectionException::class);
+        $listener->beforeDispatch($event, $request, $response);
     }
 }
