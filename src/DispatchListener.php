@@ -3,6 +3,7 @@
 namespace ParamConverter;
 
 use Cake\Controller\Controller;
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Event\EventListenerInterface;
 use Cake\Http\ControllerFactory;
@@ -43,12 +44,13 @@ class DispatchListener implements EventListenerInterface
             $controller = $factory->create($request, $response);
         }
 
-        $action = $request->getParam('action');
-        $manager = new ParamConverterManager([
-            new EntityParamConverter(),
-            new DateTimeParamConverter(),
-        ]);
+        $converters = [];
+        foreach (Configure::readOrFail('ParamConverter.converters') as $converter) {
+            $converters[] = new $converter;
+        }
+        $manager = new ParamConverterManager($converters);
 
+        $action = $request->getParam('action');
         $request = $manager->apply($request, get_class($controller), $action);
 
         $beforeEvent->setData('request', $request);
