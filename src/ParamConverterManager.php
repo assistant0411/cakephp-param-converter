@@ -66,8 +66,8 @@ class ParamConverterManager
 
             if (!empty($methodParam->getClass())) {
                 $requestParams[$i] = $this->convertParam($requestParam, $methodParam->getClass()->getName());
-            } else {
-                $requestParams[$i] = $this->convertParam($requestParam, $methodParam->getType()->getName(), $methodParam->getDefaultValue());
+            } elseif ($methodParam->getType()) {
+                $requestParams[$i] = $this->convertParam($requestParam, $methodParam->getType()->getName());
             }
 
             $methodParamType = $methodParam->getType();
@@ -87,11 +87,11 @@ class ParamConverterManager
      * @param string $class Target class
      * @return mixed
      */
-    private function convertParam(string $value, string $class, $default = null)
+    private function convertParam(string $value, string $class)
     {
         foreach ($this->all() as $converter) {
             if ($converter->supports($class)) {
-                return $converter->convertTo($value, $class, $default);
+                return $converter->convertTo($value, $class);
             }
         }
     }

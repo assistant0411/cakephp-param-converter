@@ -24,7 +24,7 @@ class DateTimeParamConverter implements ParamConverterInterface
     /**
      * @inheritDoc
      */
-    public function convertTo(string $value, string $class, $default = null)
+    public function convertTo(string $value, string $class)
     {
         return new DateTime($value);
     }

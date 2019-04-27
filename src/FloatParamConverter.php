@@ -9,20 +9,20 @@ use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 
 /**
- * Class EntityParamConverter
+ * Class FloatParamConverter
  *
- * Param Converter for converting integer-like request strings to int Controller parameters
+ * Param Converter for converting float like request strings to float Controller parameters
  *
  * @package ParamConverter
  */
-class IntegerParamConverter implements ParamConverterInterface
+class FloatParamConverter implements ParamConverterInterface
 {
     /**
      * @inheritDoc
      */
     public function supports(string $class): bool
     {
-        return $class === 'int';
+        return $class === 'float';
     }
 
     /**
@@ -30,8 +30,8 @@ class IntegerParamConverter implements ParamConverterInterface
      */
     public function convertTo(string $value, string $class)
     {
-        if (ctype_digit($value)) {
-            return (int) $value;
+        if (preg_match('/^-?(?:\d+|\d*\.\d+)$/', $value)) {
+            return (float) $value;
         }
         throw new BadRequestException();
     }

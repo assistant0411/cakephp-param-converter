@@ -24,7 +24,7 @@ Adjustments on application level are only necessary if you need to remove or / a
 
 ### Configuration
 
-By default, the plugin provides and registers two converters that can be used to convert request parameters to DateTime and Entity instances.
+By default, the plugin provides and registers converters that can be used to convert request parameters to Entity and DateTime instances as well as various scalar types.
 Converters can be removed / added by adjusting the following configuration:
 
 ``` php
@@ -35,6 +35,9 @@ return [
         'converters' => [
             \ParamConverter\EntityParamConverter::class,
             \ParamConverter\DateTimeParamConverter::class,
+            \ParamConverter\BooleanParamConverter::class,
+            \ParamConverter\IntegerParamConverter::class,
+            \ParamConverter\FloatParamConverter::class
         ]
     ]
 ];

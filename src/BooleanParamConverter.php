@@ -9,9 +9,9 @@ use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 
 /**
- * Class EntityParamConverter
+ * Class BooleanParamConverter
  *
- * Param Converter for Entity classes
+ * Param Converter for converting boolean like request strings to bool Controller parameters
  *
  * @package ParamConverter
  */
@@ -28,14 +28,12 @@ class BooleanParamConverter implements ParamConverterInterface
     /**
      * @inheritDoc
      */
-    public function convertTo(string $value, string $class, $default = null)
+    public function convertTo(string $value, string $class)
     {
         if (in_array(strtolower($value), ['1', 'true', 'yes', 'on'])) {
             return true;
         } elseif (in_array(strtolower($value), ['0', 'false', 'no', 'off'])) {
             return false;
-        } elseif ($value === '' && is_bool($default)) {
-            return $default;
         }
         throw new BadRequestException();
     }

@@ -27,7 +27,7 @@ class EntityParamConverter implements ParamConverterInterface
     /**
      * @inheritDoc
      */
-    public function convertTo(string $value, string $class, $default = null)
+    public function convertTo(string $value, string $class)
     {
         $table = App::shortName($class, 'Model/Entity');
         $table = TableRegistry::getTableLocator()->get(
