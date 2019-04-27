@@ -3,6 +3,7 @@
 namespace ParamConverter;
 
 use Cake\Core\App;
+use Cake\Http\Exception\BadRequestException;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
@@ -14,14 +15,14 @@ use Cake\Utility\Inflector;
  *
  * @package ParamConverter
  */
-class EntityParamConverter implements ParamConverterInterface
+class IntegerParamConverter implements ParamConverterInterface
 {
     /**
      * @inheritDoc
      */
     public function supports(string $class): bool
     {
-        return !empty($class) && is_subclass_of($class, Entity::class);
+        return $class === 'int';
     }
 
     /**
@@ -29,11 +30,11 @@ class EntityParamConverter implements ParamConverterInterface
      */
     public function convertTo(string $value, string $class, $default = null)
     {
-        $table = App::shortName($class, 'Model/Entity');
-        $table = TableRegistry::getTableLocator()->get(
-            Inflector::tableize($table)
-        );
-
-        return $table->get($value);
+        if (ctype_digit($value)) {
+            return (int) $value;
+        } elseif ($value === '' && is_int($default)) {
+            return $default;
+        }
+        throw new BadRequestException();
     }
 }

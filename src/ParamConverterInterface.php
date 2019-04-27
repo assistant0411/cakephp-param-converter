@@ -24,5 +24,5 @@ interface ParamConverterInterface
      * @param string $class Target class
      * @return mixed
      */
-    public function convertTo(string $value, string $class);
+    public function convertTo(string $value, string $class, $default = null);
 }
