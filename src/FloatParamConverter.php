@@ -31,7 +31,7 @@ class FloatParamConverter implements ParamConverterInterface
     public function convertTo(string $value, string $class)
     {
         if (preg_match('/^-?(?:\d+|\d*\.\d+)$/', $value)) {
-            return (float) $value;
+            return (float)$value;
         }
         throw new BadRequestException();
     }

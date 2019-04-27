@@ -31,7 +31,7 @@ class IntegerParamConverter implements ParamConverterInterface
     public function convertTo(string $value, string $class)
     {
         if (ctype_digit($value)) {
-            return (int) $value;
+            return (int)$value;
         }
         throw new BadRequestException();
     }
