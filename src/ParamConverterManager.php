@@ -69,12 +69,6 @@ class ParamConverterManager
             } elseif ($methodParam->getType()) {
                 $requestParams[$i] = $this->convertParam($requestParam, $methodParam->getType()->getName());
             }
-
-            $methodParamType = $methodParam->getType();
-            if (!empty($methodParamType) && $methodParamType->isBuiltin()) {
-                settype($requestParam, $methodParamType->getName());
-                $requestParams[$i] = $requestParam;
-            }
         }
 
         return $request->withParam('pass', $requestParams);
