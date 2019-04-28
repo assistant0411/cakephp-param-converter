@@ -64,9 +64,10 @@ class ParamConverterManager
             $methodParam = $methodParams[$i];
             $requestParam = $requestParams[$i];
 
-            $methodParamClass = $methodParam->getClass();
-            if (!empty($methodParamClass)) {
-                $requestParams[$i] = $this->convertParam($requestParam, $methodParamClass->getName());
+            if (!empty($methodParam->getClass())) {
+                $requestParams[$i] = $this->convertParam($requestParam, $methodParam->getClass()->getName());
+            } elseif ($methodParam->getType()) {
+                $requestParams[$i] = $this->convertParam($requestParam, $methodParam->getType()->getName());
             }
 
             $methodParamType = $methodParam->getType();
