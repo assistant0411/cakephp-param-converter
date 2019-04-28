@@ -35,7 +35,7 @@ class DispatchListenerTest extends TestCase
         $event->setData('controller', new UsersController());
 
         $request = (new ServerRequest())
-            ->withParam('pass', ["true", "10", "10.5", "foo"])
+            ->withParam('pass', ["false", "10", "10.5", "foo"])
             ->withParam('action', 'withScalar');
         $response = new Response();
 
@@ -136,5 +136,23 @@ class DispatchListenerTest extends TestCase
         $listener->beforeDispatch($event, $request, $response);
 
         $this->assertEmpty($event->getData('request'));
+    }
+
+    public function testOptional(): void
+    {
+        $event = new Event('beforeEvent');
+        $event->setData('controller', new UsersController());
+
+        $request = (new ServerRequest())
+            ->withParam('pass', [])
+            ->withParam('action', 'withOptional');
+        $response = new Response();
+
+        $listener = new DispatchListener();
+        $listener->beforeDispatch($event, $request, $response);
+
+        /** @var ServerRequest $updatedRequest */
+        $updatedRequest = $event->getData('request');
+        $this->assertEquals([], $updatedRequest->getParam('pass'));
     }
 }

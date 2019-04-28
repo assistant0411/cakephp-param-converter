@@ -32,4 +32,9 @@ class UsersController extends Controller
     public function withNoTypehint($a, $b, $c): void
     {
     }
+
+    public function withOptional(int $a = 0): void
+    {
+
+    }
 }
