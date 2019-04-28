@@ -1,6 +1,8 @@
 # Param Converter
 
-[...]
+CakePHP v3.x plugin for converting request parameters to objects. These objects replace the original parameters before dispatching the controller action and hence they can be injected as controller method arguments.
+
+Heavily inspired by [Symfony ParamConverter](https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html)
 
 ## Install
 
@@ -18,7 +20,32 @@ bin/cake plugin load ParamConverter
 
 ## Usage
 
-[...]
+Adjustments on application level are only necessary if you need to remove or / add new param converters.
+
+### Configuration
+
+By default, the plugin provides and registers converters that can be used to convert request parameters to Entity and DateTime instances as well as various scalar types.
+Converters can be removed / added by adjusting the following configuration:
+
+``` php
+<?php
+// config/param_converter.php
+return [
+    'ParamConverter' => [
+        'converters' => [
+            \ParamConverter\EntityParamConverter::class,
+            \ParamConverter\DateTimeParamConverter::class,
+            \ParamConverter\BooleanParamConverter::class,
+            \ParamConverter\IntegerParamConverter::class,
+            \ParamConverter\FloatParamConverter::class
+        ]
+    ]
+];
+```
+
+### Creating a converter
+
+All converters must implement the `ParamConverterInterface`.
 
 ## Security
 

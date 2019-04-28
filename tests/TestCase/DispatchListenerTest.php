@@ -44,10 +44,10 @@ class DispatchListenerTest extends TestCase
 
         /** @var ServerRequest $updatedRequest */
         $updatedRequest = $event->getData('request');
-        $this->assertTrue(is_bool($updatedRequest->getParam('pass.0')));
-        $this->assertTrue(is_int($updatedRequest->getParam('pass.1')));
-        $this->assertTrue(is_float($updatedRequest->getParam('pass.2')));
-        $this->assertTrue(is_string($updatedRequest->getParam('pass.3')));
+        $this->assertSame($updatedRequest->getParam('pass.0'), (bool)true);
+        $this->assertSame($updatedRequest->getParam('pass.1'), (int)10);
+        $this->assertSame($updatedRequest->getParam('pass.2'), (float)10.5);
+        $this->assertSame($updatedRequest->getParam('pass.3'), (string)"foo");
     }
 
     public function testDatetime(): void
@@ -133,9 +133,9 @@ class DispatchListenerTest extends TestCase
         $response = new Response();
 
         $listener = new DispatchListener();
-        $listener->beforeDispatch($event, $request, $response);
 
-        $this->assertEmpty($event->getData('request'));
+        $this->expectException(\ReflectionException::class);
+        $listener->beforeDispatch($event, $request, $response);
     }
 
     public function testOptional(): void
