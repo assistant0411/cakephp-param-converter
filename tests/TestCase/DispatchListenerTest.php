@@ -44,10 +44,10 @@ class DispatchListenerTest extends TestCase
 
         /** @var ServerRequest $updatedRequest */
         $updatedRequest = $event->getData('request');
-        $this->assertSame($updatedRequest->getParam('pass.0'), (bool)false);
-        $this->assertSame($updatedRequest->getParam('pass.1'), (int)10);
-        $this->assertSame($updatedRequest->getParam('pass.2'), (float)10.5);
-        $this->assertSame($updatedRequest->getParam('pass.3'), (string)"foo");
+        $this->assertSame(false, $updatedRequest->getParam('pass.0'));
+        $this->assertSame(10, $updatedRequest->getParam('pass.1'));
+        $this->assertSame(10.5, $updatedRequest->getParam('pass.2'));
+        $this->assertSame("foo", $updatedRequest->getParam('pass.3'));
     }
 
     public function testDatetime(): void
