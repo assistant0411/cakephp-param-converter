@@ -18,11 +18,12 @@ class BooleanParamConverterTest extends TestCase
     /**
      * @dataProvider conversionDateProvider
      */
-    public function testConvertTo($rawValue, $convertedValue)
+    public function testConvertTo($rawValue, $expectedValue)
     {
         $converter = new BooleanParamConverter();
-        $this->assertEquals($convertedValue, $converter->convertTo($rawValue, "bool"));
-
+        $convertedValue = $converter->convertTo($rawValue, "bool");
+        $this->assertEquals($expectedValue, $convertedValue);
+        $this->assertInternalType("bool", $convertedValue);
     }
 
     public function testException()
