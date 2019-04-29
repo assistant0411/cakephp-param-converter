@@ -2,11 +2,7 @@
 
 namespace ParamConverter;
 
-use Cake\Core\App;
 use Cake\Http\Exception\BadRequestException;
-use Cake\ORM\Entity;
-use Cake\ORM\TableRegistry;
-use Cake\Utility\Inflector;
 
 /**
  * Class FloatParamConverter
@@ -30,7 +26,7 @@ class FloatParamConverter implements ParamConverterInterface
      */
     public function convertTo(string $value, string $class)
     {
-        if (preg_match('/^-?(?:\d+|\d*\.\d+)$/', $value)) {
+        if (is_numeric($value)) {
             return (float)$value;
         }
         throw new BadRequestException();
