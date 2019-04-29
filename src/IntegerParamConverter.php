@@ -2,11 +2,7 @@
 
 namespace ParamConverter;
 
-use Cake\Core\App;
 use Cake\Http\Exception\BadRequestException;
-use Cake\ORM\Entity;
-use Cake\ORM\TableRegistry;
-use Cake\Utility\Inflector;
 
 /**
  * Class EntityParamConverter

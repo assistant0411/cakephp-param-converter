@@ -2,8 +2,10 @@
 
 namespace ParamConverter;
 
+use Cake\Http\Exception\BadRequestException;
 use Cake\Http\ServerRequest;
 use ReflectionMethod;
+use ReflectionParameter;
 
 class ParamConverterManager
 {
@@ -61,19 +63,9 @@ class ParamConverterManager
 
         $stopAt = min(count($methodParams), count($requestParams));
         for ($i = 0; $i < $stopAt; $i++) {
-            $methodParam = $methodParams[$i];
-            $requestParam = $requestParams[$i];
-
-            if (!empty($methodParam->getClass())) {
-                $requestParams[$i] = $this->convertParam($requestParam, $methodParam->getClass()->getName());
-            } elseif ($methodParam->getType()) {
-                $requestParams[$i] = $this->convertParam($requestParam, $methodParam->getType()->getName());
-            }
-
-            $methodParamType = $methodParam->getType();
-            if (!empty($methodParamType) && $methodParamType->isBuiltin()) {
-                settype($requestParam, $methodParamType->getName());
-                $requestParams[$i] = $requestParam;
+            $classOrType = $this->getClassOrType($methodParams[$i]);
+            if (!empty($classOrType)) {
+                $requestParams[$i] = $this->convertParam($requestParams[$i], $classOrType);
             }
         }
 
@@ -94,5 +86,27 @@ class ParamConverterManager
                 return $converter->convertTo($value, $class);
             }
         }
+
+        throw new BadRequestException();
+    }
+
+    /**
+     * Returns the class or type defined (type-hint) for the specified parameter
+     *
+     * @param \ReflectionParameter $parameter Parameter to be checked
+     * @return null|string
+     */
+    private function getClassOrType(ReflectionParameter $parameter): ?string
+    {
+        $class = $parameter->getClass();
+        if (!empty($class)) {
+            return $class->getName();
+        }
+
+        if (!empty($parameter->getType()) && $parameter->getType()->getName() !== 'string') {
+            return $parameter->getType()->getName();
+        }
+
+        return null;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace ParamConverter;
 
+use Cake\Http\Exception\BadRequestException;
 use DateTime;
 
 /**
@@ -26,6 +27,10 @@ class DateTimeParamConverter implements ParamConverterInterface
      */
     public function convertTo(string $value, string $class)
     {
+        if (false === strtotime($value)) {
+            throw new BadRequestException();
+        }
+
         return new DateTime($value);
     }
 }

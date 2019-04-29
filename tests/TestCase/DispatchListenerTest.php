@@ -35,7 +35,7 @@ class DispatchListenerTest extends TestCase
         $event->setData('controller', new UsersController());
 
         $request = (new ServerRequest())
-            ->withParam('pass', ["true", "10", "10.5", "foo"])
+            ->withParam('pass', ["false", "10", "10.5", "foo"])
             ->withParam('action', 'withScalar');
         $response = new Response();
 
@@ -44,10 +44,10 @@ class DispatchListenerTest extends TestCase
 
         /** @var ServerRequest $updatedRequest */
         $updatedRequest = $event->getData('request');
-        $this->assertSame($updatedRequest->getParam('pass.0'), (bool)true);
-        $this->assertSame($updatedRequest->getParam('pass.1'), (int)10);
-        $this->assertSame($updatedRequest->getParam('pass.2'), (float)10.5);
-        $this->assertSame($updatedRequest->getParam('pass.3'), (string)"foo");
+        $this->assertSame(false, $updatedRequest->getParam('pass.0'));
+        $this->assertSame(10, $updatedRequest->getParam('pass.1'));
+        $this->assertSame(10.5, $updatedRequest->getParam('pass.2'));
+        $this->assertSame("foo", $updatedRequest->getParam('pass.3'));
     }
 
     public function testDatetime(): void
@@ -136,5 +136,23 @@ class DispatchListenerTest extends TestCase
 
         $this->expectException(\ReflectionException::class);
         $listener->beforeDispatch($event, $request, $response);
+    }
+
+    public function testOptional(): void
+    {
+        $event = new Event('beforeEvent');
+        $event->setData('controller', new UsersController());
+
+        $request = (new ServerRequest())
+            ->withParam('pass', [])
+            ->withParam('action', 'withOptional');
+        $response = new Response();
+
+        $listener = new DispatchListener();
+        $listener->beforeDispatch($event, $request, $response);
+
+        /** @var ServerRequest $updatedRequest */
+        $updatedRequest = $event->getData('request');
+        $this->assertEquals([], $updatedRequest->getParam('pass'));
     }
 }
