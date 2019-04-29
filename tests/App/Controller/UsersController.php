@@ -35,6 +35,5 @@ class UsersController extends Controller
 
     public function withOptional(int $a = 0): void
     {
-
     }
 }

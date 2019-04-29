@@ -8,7 +8,7 @@ use ParamConverter\DateTimeParamConverter;
 
 class DateTimeParamConverterTest extends TestCase
 {
-    public function testSupports()
+    public function testSupports(): void
     {
         $converter = new DateTimeParamConverter();
         $this->assertTrue($converter->supports(\DateTime::class));
@@ -16,8 +16,11 @@ class DateTimeParamConverterTest extends TestCase
 
     /**
      * @dataProvider conversionDataProvider
+     * @param string $rawValue Raw value
+     * @param string $expectedValue Expected value upon conversion
+     * @param string $format Date format
      */
-    public function testConvertTo($rawValue, $expectedValue, $format)
+    public function testConvertTo(string $rawValue, string $expectedValue, string $format): void
     {
         $converter = new DateTimeParamConverter();
         /** @var \DateTime $convertedValue */
@@ -26,14 +29,17 @@ class DateTimeParamConverterTest extends TestCase
         $this->assertEquals($expectedValue, $convertedValue->format($format));
     }
 
-    public function testException()
+    public function testException(): void
     {
         $converter = new DateTimeParamConverter();
         $this->expectException(BadRequestException::class);
         $converter->convertTo("not-a-valid-datetime", \DateTime::class);
     }
 
-    public function conversionDataProvider()
+    /**
+     * @return array[]
+     */
+    public function conversionDataProvider(): array
     {
         return [
             // raw value, converted value

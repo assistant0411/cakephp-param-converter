@@ -8,7 +8,7 @@ use ParamConverter\IntegerParamConverter;
 
 class IntegerParamConverterTest extends TestCase
 {
-    public function testSupports()
+    public function testSupports(): void
     {
         $converter = new IntegerParamConverter();
         $this->assertTrue($converter->supports('int'));
@@ -16,9 +16,11 @@ class IntegerParamConverterTest extends TestCase
     }
 
     /**
-     * @dataProvider conversionDateProvider
+     * @dataProvider conversionDataProvider
+     * @param string $rawValue Raw value
+     * @param string $expectedValue Expected value upon conversion
      */
-    public function testConvertTo($rawValue, $expectedValue)
+    public function testConvertTo(string $rawValue, string $expectedValue): void
     {
         $converter = new IntegerParamConverter();
         $convertedValue = $converter->convertTo($rawValue, "int");
@@ -26,14 +28,17 @@ class IntegerParamConverterTest extends TestCase
         $this->assertInternalType("int", $convertedValue);
     }
 
-    public function testException()
+    public function testException(): void
     {
         $converter = new IntegerParamConverter();
         $this->expectException(BadRequestException::class);
         $converter->convertTo("no-int-number", "int");
     }
 
-    public function conversionDateProvider()
+    /**
+     * @return array[]
+     */
+    public function conversionDataProvider(): array
     {
         return [
             // raw value, converted value

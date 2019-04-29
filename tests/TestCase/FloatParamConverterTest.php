@@ -8,7 +8,7 @@ use ParamConverter\FloatParamConverter;
 
 class FloatParamConverterTest extends TestCase
 {
-    public function testSupports()
+    public function testSupports(): void
     {
         $converter = new FloatParamConverter();
         $this->assertTrue($converter->supports('float'));
@@ -16,9 +16,11 @@ class FloatParamConverterTest extends TestCase
     }
 
     /**
-     * @dataProvider conversionDateProvider
+     * @dataProvider conversionDataProvider
+     * @param string $rawValue Raw value
+     * @param string $expectedValue Expected value upon conversion
      */
-    public function testConvertTo($rawValue, $expectedValue)
+    public function testConvertTo(string $rawValue, string $expectedValue): void
     {
         $converter = new FloatParamConverter();
         $convertedValue = $converter->convertTo($rawValue, "float");
@@ -26,14 +28,17 @@ class FloatParamConverterTest extends TestCase
         $this->assertInternalType("float", $convertedValue);
     }
 
-    public function testException()
+    public function testException(): void
     {
         $converter = new FloatParamConverter();
         $this->expectException(BadRequestException::class);
         $converter->convertTo("no-float-number", "float");
     }
 
-    public function conversionDateProvider()
+    /**
+     * @return array[]
+     */
+    public function conversionDataProvider(): array
     {
         return [
             // raw value, converted value

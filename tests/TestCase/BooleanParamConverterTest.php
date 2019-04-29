@@ -8,7 +8,7 @@ use ParamConverter\BooleanParamConverter;
 
 class BooleanParamConverterTest extends TestCase
 {
-    public function testSupports()
+    public function testSupports(): void
     {
         $converter = new BooleanParamConverter();
         $this->assertTrue($converter->supports('bool'));
@@ -16,9 +16,11 @@ class BooleanParamConverterTest extends TestCase
     }
 
     /**
-     * @dataProvider conversionDateProvider
+     * @dataProvider conversionDataProvider
+     * @param string $rawValue Raw value
+     * @param string $expectedValue Expected value upon conversion
      */
-    public function testConvertTo($rawValue, $expectedValue)
+    public function testConvertTo(string $rawValue, string $expectedValue): void
     {
         $converter = new BooleanParamConverter();
         $convertedValue = $converter->convertTo($rawValue, "bool");
@@ -26,14 +28,17 @@ class BooleanParamConverterTest extends TestCase
         $this->assertInternalType("bool", $convertedValue);
     }
 
-    public function testException()
+    public function testException(): void
     {
         $converter = new BooleanParamConverter();
         $this->expectException(BadRequestException::class);
         $converter->convertTo("not-a-bool", "bool");
     }
 
-    public function conversionDateProvider()
+    /**
+     * @return array[]
+     */
+    public function conversionDataProvider(): array
     {
         return [
             // raw value, converted value
