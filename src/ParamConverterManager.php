@@ -66,7 +66,7 @@ class ParamConverterManager
 
             if (!empty($methodParam->getClass())) {
                 $requestParams[$i] = $this->convertParam($requestParam, $methodParam->getClass()->getName());
-            } elseif ($methodParam->getType()) {
+            } elseif (!empty($methodParam->getType())) {
                 $requestParams[$i] = $this->convertParam($requestParam, $methodParam->getType()->getName());
             }
         }
@@ -88,5 +88,7 @@ class ParamConverterManager
                 return $converter->convertTo($value, $class);
             }
         }
+
+        return $value;
     }
 }

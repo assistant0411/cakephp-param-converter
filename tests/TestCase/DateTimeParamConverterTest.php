@@ -4,7 +4,6 @@ namespace ParamConverter\Test\TestCase;
 
 use Cake\Http\Exception\BadRequestException;
 use Cake\TestSuite\TestCase;
-use ParamConverter\BooleanParamConverter;
 use ParamConverter\DateTimeParamConverter;
 
 class DateTimeParamConverterTest extends TestCase
