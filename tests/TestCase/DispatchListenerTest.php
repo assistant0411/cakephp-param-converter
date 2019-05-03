@@ -6,6 +6,8 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
+use Cake\I18n\FrozenDate;
+use Cake\I18n\FrozenTime;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use DateTime;
@@ -66,6 +68,42 @@ class DispatchListenerTest extends TestCase
         /** @var ServerRequest $updatedRequest */
         $updatedRequest = $event->getData('request');
         $this->assertTrue($updatedRequest->getParam('pass.0') instanceof Datetime);
+    }
+
+    public function testFrozenDate(): void
+    {
+        $event = new Event('beforeEvent');
+        $event->setData('controller', new UsersController());
+
+        $request = (new ServerRequest())
+            ->withParam('pass', ["2020-10-10"])
+            ->withParam('action', 'withFrozenDate');
+        $response = new Response();
+
+        $listener = new DispatchListener();
+        $listener->beforeDispatch($event, $request, $response);
+
+        /** @var ServerRequest $updatedRequest */
+        $updatedRequest = $event->getData('request');
+        $this->assertTrue($updatedRequest->getParam('pass.0') instanceof FrozenDate);
+    }
+
+    public function testFrozenTime(): void
+    {
+        $event = new Event('beforeEvent');
+        $event->setData('controller', new UsersController());
+
+        $request = (new ServerRequest())
+            ->withParam('pass', ["2020-10-10"])
+            ->withParam('action', 'withFrozenTime');
+        $response = new Response();
+
+        $listener = new DispatchListener();
+        $listener->beforeDispatch($event, $request, $response);
+
+        /** @var ServerRequest $updatedRequest */
+        $updatedRequest = $event->getData('request');
+        $this->assertTrue($updatedRequest->getParam('pass.0') instanceof FrozenTime);
     }
 
     public function testEntity(): void

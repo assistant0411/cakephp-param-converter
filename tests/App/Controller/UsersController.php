@@ -20,6 +20,14 @@ class UsersController extends Controller
     {
     }
 
+    public function withFrozenDate(FrozenDate $date): void
+    {
+    }
+
+    public function withFrozenTime(FrozenTime $frozenTime): void
+    {
+    }
+
     public function withNoParams(): void
     {
     }
