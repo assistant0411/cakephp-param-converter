@@ -44,7 +44,7 @@ class DateTimeParamConverterTest extends TestCase
         return [
             // raw value, converted value
             ['now', date('Y-m-d'), 'Y-m-d'],
-            ['now', date('Y-m-d h:i:s'), 'Y-m-d h:i:s'],
+            ['now', date('Y-m-d h:i'), 'Y-m-d h:i'],
             ['2020-09-10', '2020-09-10', 'Y-m-d'],
             ['2020-09-10 15:10:00', '2020-09-10 15:10:00', 'Y-m-d H:i:s'],
         ];
