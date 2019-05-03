@@ -34,7 +34,7 @@ class FrozenDateParamConverterTest extends TestCase
     {
         $converter = new FrozenDateTimeParamConverter();
         $this->expectException(BadRequestException::class);
-        $converter->convertTo("not-a-valid-datetime", FrozenDate::class);
+        $converter->convertTo("notvalid", FrozenDate::class);
     }
 
     /**
