@@ -3,6 +3,8 @@
 namespace ParamConverter\Test\App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\I18n\FrozenDate;
+use Cake\I18n\FrozenTime;
 use DateTime;
 use ParamConverter\Test\App\Model\Entity\User;
 
