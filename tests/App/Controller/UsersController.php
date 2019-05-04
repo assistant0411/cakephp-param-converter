@@ -3,6 +3,8 @@
 namespace ParamConverter\Test\App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\I18n\FrozenDate;
+use Cake\I18n\FrozenTime;
 use DateTime;
 use ParamConverter\Test\App\Model\Entity\User;
 
@@ -17,6 +19,14 @@ class UsersController extends Controller
     }
 
     public function withDatetime(DateTime $dateTime): void
+    {
+    }
+
+    public function withFrozenDate(FrozenDate $date): void
+    {
+    }
+
+    public function withFrozenTime(FrozenTime $frozenTime): void
     {
     }
 
