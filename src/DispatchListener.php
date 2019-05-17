@@ -39,9 +39,10 @@ class DispatchListener implements EventListenerInterface
         // event handler if there is one.
         if ($beforeEvent->getData('controller') instanceof Controller) {
             $controller = $beforeEvent->getData('controller');
+            $class = get_class($controller);
         } else {
             $factory = new ControllerFactory();
-            $controller = $factory->create($request, $response);
+            $class = $factory->getControllerClass($request);
         }
 
         $converters = [];
@@ -51,7 +52,7 @@ class DispatchListener implements EventListenerInterface
         $manager = new ParamConverterManager($converters);
 
         $action = $request->getParam('action');
-        $request = $manager->apply($request, get_class($controller), $action);
+        $request = $manager->apply($request, $class, $action);
 
         $beforeEvent->setData('request', $request);
     }
