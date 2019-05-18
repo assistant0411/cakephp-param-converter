@@ -38,10 +38,14 @@ class DispatchListener implements EventListenerInterface
         // Use the controller built by an beforeDispatch
         // event handler if there is one.
         if ($beforeEvent->getData('controller') instanceof Controller) {
-            $controller = $beforeEvent->getData('controller');
+            $class = get_class($beforeEvent->getData('controller'));
         } else {
             $factory = new ControllerFactory();
-            $controller = $factory->create($request, $response);
+            $class = $factory->getControllerClass($request);
+            if (!$class) {
+                // Controller does not exist. Let Cake handle it naturally (MissingControllerException)
+                $class = get_class($factory->create($request, $response));
+            }
         }
 
         $converters = [];
@@ -51,7 +55,7 @@ class DispatchListener implements EventListenerInterface
         $manager = new ParamConverterManager($converters);
 
         $action = $request->getParam('action');
-        $request = $manager->apply($request, get_class($controller), $action);
+        $request = $manager->apply($request, $class, $action);
 
         $beforeEvent->setData('request', $request);
     }
