@@ -2,8 +2,10 @@
 
 namespace ParamConverter;
 
+use Cake\Controller\Exception\MissingActionException;
 use Cake\Http\Exception\BadRequestException;
 use Cake\Http\ServerRequest;
+use ReflectionException;
 use ReflectionMethod;
 use ReflectionParameter;
 
@@ -57,7 +59,16 @@ class ParamConverterManager
      */
     public function apply(ServerRequest $request, string $controller, string $action): ServerRequest
     {
-        $method = new ReflectionMethod($controller, $action);
+        try {
+            $method = new ReflectionMethod($controller, $action);
+        } catch (ReflectionException $e) {
+            throw new MissingActionException([
+                'controller' => $request->getParam('controller') . 'Controller',
+                'action' => $request->getParam('action'),
+                'prefix' => $request->getParam('prefix') ?: '',
+                'plugin' => $request->getParam('plugin'),
+            ]);
+        }
         $methodParams = $method->getParameters();
         $requestParams = $request->getParam('pass');
 
