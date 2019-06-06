@@ -2,6 +2,7 @@
 
 namespace ParamConverter\Test\TestCase;
 
+use Cake\Controller\Exception\MissingActionException;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\Http\Response;
@@ -191,7 +192,7 @@ class DispatchListenerTest extends TestCase
 
         $listener = new DispatchListener();
 
-        $this->expectException(\ReflectionException::class);
+        $this->expectException(MissingActionException::class);
         $listener->beforeDispatch($event, $request, $response);
     }
 
